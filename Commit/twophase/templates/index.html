@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-with, initial-scale=1, shrink-to-fit=no">
+  <!-- &#26032; Bootstrap5 &#26680;&#24515; CSS &#25991;&#20214; -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+  <!-- &#26368;&#26032;&#30340; Bootstrap5 &#26680;&#24515; JavaScript &#25991;&#20214; -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+  </head>
+<body>
+
+<!-- <div class="container pt-3"> -->
+<div class="card container-sm">
+  <div class="card-header">
+    <h2>Coordinator</h2>
+  </div>
+  <div class="card-body">
+
+    <div class="container mbrank-5">
+      <div class="row">
+
+        <!-- Prepare -->
+        {% for v in values %}
+        <form class="col-sm-6 mt-3" action="/two-phase/prepare/{{ v.key }}" method="get">
+          <div class="row g-3 align-items-enter">
+            <div class="col-auto">
+              <label for="{{ v.key }}1" class="col-form-label">{{ v.key }}</label>
+            </div>
+            <div class="col-auto">
+              <input type="text" id="{{ v.key }}1" name="{{ v.key }}" class="form-control">
+            </div>
+            <div class="col-auto">
+              <input type="submit" class="btn btn-primary" value="Prepare">
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+
+        <!-- Commit -->
+        <a class="col-sm-6 mt-3 btn btn-success" href="/two-phase/commit">Commit</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div class="container pt-3">
+    <div class="row">
+
+      <!-- Show participants -->
+      {% for p in participants %}
+      <div class="container mblank-2 col-sm-3">
+        <div class="card">
+          <!-- header -->
+          <div class="card-header container">
+            <div class="row">
+              <h5 class="col-6">{{ p.name }}</h5>
+                <h5 class="col-6">
+                  {% if p.state == 0 %}
+                  <div class="text-success">Normal</div>
+                  {% elif p.state == 1 %}
+                  <div class="text-info">Prepare</div>
+                  {% elif p.state == 2 %}
+                  <div class="text-info">Prepared</div>
+                  {% endif %}
+                </h5>
+            </div>
+          </div>
+          <!-- body -->
+          <div class="card-body">
+            <ul>
+            {% for v in p.values %}
+              <li>
+                <ul>
+                  <li>Key: {{ v.key }}</li>
+                  <li>Value: {{ v.value }}</li>
+                </ul>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          <!-- footer -->
+          {% if p.state == 1 %}
+          <div class="card-footer">
+            <a class="btn btn-primary" href="/two-phase/prepared/{{ p.name }}">Prepared</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+</div>
+</body>
+</html>
