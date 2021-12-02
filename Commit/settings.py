@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'threephase.apps.ThreephaseConfig',
     'twophase.apps.TwophaseConfig',
     'django.contrib.admin',
     'django.contrib.auth',

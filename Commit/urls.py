@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('two-phase/', include('twophase.urls')),
+    path('three-phase/', include('threephase.urls')),
     path('admin/', admin.site.urls),
 ]
