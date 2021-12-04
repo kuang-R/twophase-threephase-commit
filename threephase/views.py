@@ -17,7 +17,7 @@ def get_context():
     return context
 
 def app_page(request):
-    return render(request, 'index.html', get_context())
+    return render(request, 'index1.html', get_context())
 
 def index(request):
     return app_page(request)
