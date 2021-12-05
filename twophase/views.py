@@ -59,6 +59,13 @@ def add_value(request, key, value):
         new_value.save()
     return app_page(request)
 
+def update_value(request):
+    for num in range(1, 5):
+        values = TwoPhaseValue.objects.filter(id = num).update(key = 'height')
+    for num in range(5, 9):
+        values = TwoPhaseValue.objects.filter(id = num).update(key = 'weight')
+    return app_page(request)
+
 def prepare(request, key):
     response = HttpResponse()
     value = request.GET[key]
